@@ -23,7 +23,6 @@ pub async fn dig(
         .json::<types::CloudFlareResponse>()
         .await?;
 
-    // Debugging purposes for now
     Ok(response)
 }
 
