@@ -6,10 +6,13 @@ use reqwest::{
 };
 
 pub async fn dig(
-    domain: &'static str,
+    domain: impl Into<String>,
     record: DnsRecord,
 ) -> Result<types::CloudFlareResponse, Box<dyn std::error::Error + Send + Sync>> {
-    let url = format!("https://cloudflare-dns.com/query?name={domain}&type={record:?}");
+    let url = format!(
+        "https://cloudflare-dns.com/query?name={}&type={record:?}",
+        domain.into()
+    );
 
     let mut headers = HeaderMap::new();
     headers.insert("Accept", HeaderValue::from_static("application/dns-json"));
