@@ -8,7 +8,7 @@ use reqwest::{
 pub async fn dig(
     domain: &'static str,
     record: DnsRecord,
-) -> Result<types::CloudFlareResponse, Box<dyn std::error::Error>> {
+) -> Result<types::CloudFlareResponse, Box<dyn std::error::Error + Send + Sync>> {
     let url = format!("https://cloudflare-dns.com/query?name={domain}&type={record:?}");
 
     let mut headers = HeaderMap::new();
